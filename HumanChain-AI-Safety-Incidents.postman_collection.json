@@ -1,0 +1,182 @@
+{
+  "info": {
+    "_postman_id": "7c1a5d5c-7f98-4e4a-9a53-d55a1b0e7b1c",
+    "name": "HumanChain AI Safety Incidents",
+    "description": "API collection for HumanChain AI Safety Incident Logging System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API Status Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}",
+          "host": ["{{baseUrl}}"]
+        },
+        "description": "Checks if the API is running correctly"
+      }
+    },
+    {
+      "name": "1. GET /incidents - Get All Incidents",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/incidents",
+          "host": ["{{baseUrl}}"],
+          "path": ["incidents"]
+        },
+        "description": "Retrieves all AI safety incidents from the database."
+      }
+    },
+    {
+      "name": "2. POST /incidents - Create New Incident",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"Unintended Algorithm Behavior\",\n    \"description\": \"Recommendation system promoting harmful content without proper filtering\",\n    \"severity\": \"Medium\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/incidents",
+          "host": ["{{baseUrl}}"],
+          "path": ["incidents"]
+        },
+        "description": "Creates a new AI safety incident in the database."
+      }
+    },
+    {
+      "name": "3. GET /incidents/{id} - Get Incident by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/incidents/{{incidentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["incidents", "{{incidentId}}"]
+        },
+        "description": "Retrieves a specific incident by its ID."
+      }
+    },
+    {
+      "name": "4. DELETE /incidents/{id} - Delete Incident",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/incidents/{{incidentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["incidents", "{{incidentId}}"]
+        },
+        "description": "Deletes a specific incident by its ID."
+      }
+    },
+    {
+      "name": "Validation Test - Invalid Severity",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"Test Incident\",\n    \"description\": \"This is a test incident with invalid severity\",\n    \"severity\": \"Critical\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/incidents",
+          "host": ["{{baseUrl}}"],
+          "path": ["incidents"]
+        },
+        "description": "Tests validation with an invalid severity level"
+      }
+    },
+    {
+      "name": "Validation Test - Missing Fields",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"Missing Fields Test\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/incidents",
+          "host": ["{{baseUrl}}"],
+          "path": ["incidents"]
+        },
+        "description": "Tests validation with missing required fields"
+      }
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "incidentId",
+      "value": "",
+      "type": "string",
+      "description": "ID of an incident for getting/deleting specific incidents"
+    }
+  ]
+}
